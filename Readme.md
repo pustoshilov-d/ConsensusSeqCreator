@@ -9,18 +9,18 @@ Tool for creating fasta-consensuses (parts of the reference genome with mutation
 After installing Conda run `sh configure.sh` 
 or do the steps below 
 
-#### Download test data
+#### 1. Download test data
 - `wget -P ./test_data ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz`
 - `gunzip ./test_data/human_g1k_v37.fasta.gz`
 
-#### Configure and run environment
+#### 2. Create and run environment
 - `conda env create -f environment.yml -yes`
 - `conda activate consensus_seq_creator`
 
-#### Help
+#### 3. Read help
 - `python ./src/ConsensusSeqCreator.py -h`
 
-#### Run test
+#### 4. Run test
 - `python ./src/ConsensusSeqCreator.py -vcf ./test_data/mini_test.vcf -fasta ./test_data/human_g1k_v37.fasta -len 20 -num 10`
 
 Result will be in `./output` or specified in -out directory. 
