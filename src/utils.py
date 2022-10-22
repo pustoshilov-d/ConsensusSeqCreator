@@ -104,11 +104,10 @@ def mutate_seq(snp: pd.Series, consensus_len: int, chr_seq: str, mutation_place:
     first_part = chr_seq[consensus_start:ref_start]
     second_part = chr_seq[ref_end:consensus_end]
     mutated_seq = first_part + snp["ALT"] + second_part
-    original_seq = chr_seq[consensus_start:consensus_end]
+    # original_seq = chr_seq[consensus_start:consensus_end]
     # print(consensus_len, len(mutated_seq))
     # print(original_seq)
     # print(mutated_seq)
-
     return mutated_seq
 
 
@@ -131,12 +130,3 @@ def save_consensus(seq: str, snp: pd.Series, output_dir: str):
         fasta_file.write(">"+name+"\n")
         for line in wrapped_seq:
             fasta_file.write(line+"\n")
-
-
-# df = pd.Series({'REF': 'BB', 'POS': 3, 'ALT': 'A'})
-# print(df)
-
-# seq = 'AABFDFSADADVFVRASSC'
-# print(len(seq))
-# print(mutate_seq(snp=df, mutation_place='center',
-#       chr_seq=seq, consensus_len=5))
