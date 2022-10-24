@@ -88,7 +88,7 @@ class ConsensusSeqCreator():
         prepare_dir(self.output_dir)
         self.split_fasta()
 
-    def parse_vcf(self):
+    def parse_vcf(self) -> None:
         snp_df = pd.DataFrame()
 
         with open(self.vcf_path, "r") as snp_file:
@@ -102,14 +102,14 @@ class ConsensusSeqCreator():
 
         self.snp_df = snp_df
 
-    def enrich_snp_data(self):
+    def enrich_snp_data(self) -> None:
         self.snp_df["AF"] = self.snp_df.apply(enrich_af, axis=1)
         self.snp_df["GT"] = self.snp_df.apply(
             enrich_gt, axis=1, sample=self.sample)
 
         self.snp_full_df = self.snp_df
 
-    def filter_snp(self):
+    def filter_snp(self) -> None:
         if self.filter_pass:
             self.snp_df = self.snp_df[self.snp_df["FILTER"] == "PASS"]
 
@@ -145,7 +145,7 @@ class ConsensusSeqCreator():
                                    "REF", "ALT", "GT"]]
         self.snp_df["POS"] = self.snp_df["POS"].astype(int)
 
-    def split_fasta(self):
+    def split_fasta(self) -> None:
         print("\nSNPs to use")
         print(self.snp_df)
         print('\n')

@@ -8,7 +8,7 @@ from consts import (
 )
 
 
-def enrich_gt(row: pd.Series, sample: str):
+def enrich_gt(row: pd.Series, sample: str) -> str:
     try:
         GT_index = row["FORMAT"].split(":").index("GT")
         return row[sample].split(":")[GT_index]
@@ -16,7 +16,7 @@ def enrich_gt(row: pd.Series, sample: str):
         pass
 
 
-def enrich_af(row: pd.Series):
+def enrich_af(row: pd.Series) -> float:
     try:
         AF_field = [x for x in row["INFO"].split(";") if "AF" in x][0]
         return float(AF_field.split("=")[1])
@@ -24,7 +24,7 @@ def enrich_af(row: pd.Series):
         pass
 
 
-def filter_homo(value: str):
+def filter_homo(value: str) -> bool:
     if "/" in value:
         return len(set(value.split("/"))) == 1
     if "|" in value:
@@ -32,7 +32,7 @@ def filter_homo(value: str):
     return False
 
 
-def filter_alt1_only(value: str):
+def filter_alt1_only(value: str) -> bool:
     try:
         if "/" in value:
             return int(value.split("/")[0]) == 1
@@ -43,7 +43,7 @@ def filter_alt1_only(value: str):
         return False
 
 
-def solve_alt(row: pd.Series, allele: int):
+def solve_alt(row: pd.Series, allele: int) -> str:
     try:
         if "/" in row["GT"]:
             alt_index = int(row["GT"].split("/")[allele-1])
@@ -62,7 +62,7 @@ def solve_alt(row: pd.Series, allele: int):
         return row["ALT"]
 
 
-def mutate_seq(snp: pd.Series, consensus_len: int, chr_seq: str, mutation_place: str):
+def mutate_seq(snp: pd.Series, consensus_len: int, chr_seq: str, mutation_place: str) -> str:
     chr_seq_len = len(chr_seq)
 
     alt_len = len(snp["ALT"])
@@ -111,13 +111,13 @@ def mutate_seq(snp: pd.Series, consensus_len: int, chr_seq: str, mutation_place:
     return mutated_seq
 
 
-def prepare_dir(output_dir: str):
+def prepare_dir(output_dir: str) -> None:
     if os.path.exists(output_dir):
         shutil.rmtree(output_dir)
     os.makedirs(output_dir, exist_ok=True)
 
 
-def save_consensus(seq: str, snp: pd.Series, output_dir: str):
+def save_consensus(seq: str, snp: pd.Series, output_dir: str) -> None:
     name = " ".join(snp[["CHROM", "POS", "REF", "ALT"]].astype(
         str).values.tolist())
 
