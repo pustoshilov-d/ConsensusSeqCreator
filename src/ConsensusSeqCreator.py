@@ -1,3 +1,24 @@
+DESC = '''\
+Tool for creating fasta-consensuses (parts of 
+the reference genome with mutations from multi-sample VCF).
+Author: pustoshilov-d
+        '''
+__author__ = "pustoshilov-d"
+
+"""
+TODO:
+    refactoring: вынести все тексты и цирфы как константы
+    feature: добавить поддержку gz
+    refactoring: в enrich_af и fasta_parse использовать regex
+    debug: проверить поддержку гаплоидных 
+    feature: дорабоать поддержку фазирования
+    feature: выбор методов решателя, какую использовать аллель
+    feature: добавить параметр перемешивать/нет replace в .sample() 
+    refactoring: в индексировании фасты добавить Exception при выходе за границы
+    refactoring: ввести логирование
+    refactoring: ввести нормальный набор Exceptions
+"""
+
 from utils import (
     enrich_gt,
     enrich_af,
@@ -12,27 +33,6 @@ from consts import (
     FIRST_SAMPLE_COLUMN
 )
 import pandas as pd
-DESC = '''\
-Tool for creating fasta-consensuses (parts of 
-the reference genome with mutations from multi-sample VCF).
-Author: pustoshilov-d
-        '''
-__author__ = "pustoshilov-d"
-
-"""
-
-TODO:
-    refactoring: вынести все тексты и цирфы как константы
-    feature: добавить поддержку gz
-    refactoring: в enrich_af и fasta_parse использовать regex
-    debug: проверить поддержку гаплоидных 
-    feature: дорабоать поддержку фазирования
-    feature: выбор методов решателя, какую использовать аллель
-    feature: добавить параметр перемешивать/нет replace в .sample() 
-    refactoring: в индексировании фасты добавить Exception при выходе за границы
-    refactoring: ввести логирование
-    refactoring: ввести нормальный набор Exceptions
-"""
 
 
 class ConsensusSeqCreator():
